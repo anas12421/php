@@ -4,6 +4,9 @@ session_start();
 $name = $_POST ['name'];
 $email = $_POST ['email'];
 $password = $_POST ['password'];
+$gender = $_POST ['gender'];
+$country = $_POST ['country'];
+$check = $_POST ['check'];
 
 
 $uppercase = preg_match('@[A-Z]@' , $password);
@@ -71,6 +74,36 @@ $_SESSION["old_password"] = $password ;
   }
 }
 
+if(!$gender){
+$register_form = true;
+$_SESSION["gender_error_message"] = "Please select your gender";
+}
+else{
+  $_SESSION["old_gender"] = $gender;
+}
+if(!$country){
+$register_form = true;
+$_SESSION["country_error_message"] = "Please select your Country";
+}
+else{
+  $_SESSION["old_country"] = $country;
+}
+
+
+if(!$check){
+  $register_form = true;
+  $_SESSION["check_error_message"] = "Please Select Your Hobbies";
+}
+else{
+  $_SESSION["old_check"] = $check;
+}
+
+
+
+
+
+
+
 if($register_form){
   header("location:register.php");
 }
@@ -78,6 +111,9 @@ else{
   echo "Your Name Is:-"."&nbsp;&nbsp;&nbsp;&nbsp;".$name."<br>";
   echo "Your Email Is:-"."&nbsp;&nbsp;&nbsp;&nbsp;".$email."<br>";
   echo "Your Password Is:-"."&nbsp;&nbsp;&nbsp;&nbsp;".$password."<br>";
+  echo "Your are a:-"."&nbsp;&nbsp;&nbsp;&nbsp;".$gender."<br>";
+  echo "Your Country is:-"."&nbsp;&nbsp;&nbsp;&nbsp;".$country."<br>";
+  echo "Your Hobby is:-"."&nbsp;&nbsp;&nbsp;&nbsp;".$check."<br>";
 }
 
 

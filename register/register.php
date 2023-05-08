@@ -20,16 +20,18 @@ session_start();
       }
 
       .pass_input i{
-        height: 30px;
-        width: 30px;
-        background-color: red;
+        height: 60px;
+        width: 60px;
+        /* background-color: red; */
         text-align: center;
-        line-height: 30px;
-        color: white;
+        line-height: 60px;
+        color: goldenrod;
         position: absolute;
         top: 0%;
         right: 0;
+        font-size: 25px;
         cursor: pointer;
+        border-radius: 50%;
       }
     </style>
   </head>
@@ -73,7 +75,7 @@ session_start();
 
 
 
-              <div class="form-floating pass_input">
+              <div class="form-floating pass_input mb-3">
                 <input type="password" class="form-control" id="input" placeholder="Password" name="password" value="<?= (isset($_SESSION["old_password"])?$_SESSION["old_password"]:'')?>">
 
                 <label for="">Password</label>
@@ -86,7 +88,133 @@ session_start();
               </div>
 
 
-              <button type="submit" class="btn btn-primary mt-4">Submit</button>
+
+
+
+
+
+
+
+
+
+                <h4>Select your gender</h4>
+                
+                <?php 
+                $gender = "";
+                if(isset($_SESSION["old_gender"])){
+                 $gender = $_SESSION["old_gender"];
+                }
+                ?>
+                <div class="form-check mt-3">
+                  <input class="form-check-input" type="radio" name="gender" id="flexRadioDefault1" value="male" <?=($gender == 'male' ? 'checked':'')?> >
+                  <label class="form-check-label" for="flexRadioDefault1">
+                    Male
+                  </label>
+                </div>
+                
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="gender" id="flexRadioDefault2" value="female" <?=($gender == 'female' ? 'checked':'')?> >
+                  <label class="form-check-label" for="flexRadioDefault2">
+                    Female
+                  </label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="gender" id="flexRadioDefault3" value="others" <?=($gender == 'others' ? 'checked':'')?> >
+                  <label class="form-check-label" for="flexRadioDefault3">
+                    Others
+                  </label>
+                </div>
+
+                      <?php if(isset($_SESSION["gender_error_message"])){ ?>
+                        <div class="alert alert-warning mt-3 ">
+                          <?= $_SESSION["gender_error_message"]?>
+                        </div>
+                      <?php }?>
+
+
+
+                <?php 
+                  $country = "";
+                  if(isset($_SESSION["old_country"])){
+                  $country = $_SESSION["old_country"];
+                  }
+                ?>
+                      <div class="select_input mt-3">
+                      <select class="form-select" aria-label="Default select example" name="country">
+                        <option value="<?= (isset($_SESSION["old_country"]) ? $_SESSION["old_country"]:'') ?>" selected>Select Your Country</option>
+                        <option value="Bangladesh" <?= ($country == "Bangladesh" ? 'selected':'')?>>Bangladesh</option>
+                        <option value="Saudi Arabia" <?= ($country == "Saudi Arabia" ? 'selected':'')?>>Saudi Arabia</option>
+                        <option value="America" <?= ($country == "America" ? 'selected':'')?>>America</option>
+                      </select>
+                      <?php if(isset($_SESSION["country_error_message"])){ ?>
+                        <div class="alert alert-warning mt-3 ">
+                          <?= $_SESSION["country_error_message"]?>
+                        </div>
+                      <?php }?>
+                      </div>
+
+
+
+
+                      <h4 class="mt-4">Select Your Hobby</h4>
+                      <?php
+                      $check_box = "";
+                      if(isset($_SESSION["old_check"])){
+                        $check_box = $_SESSION["old_check"];
+                      }
+                      
+                      ?>
+                        <div class="checkbox_input d-flex">
+                        <div class="form-check me-3">
+                          <input class="form-check-input" type="checkbox" value="Playing" id="flexCheckDefault" name="check" <?= ($check_box == "Playing" ? 'checked':'')?>>
+                          <label class="form-check-label" for="flexCheckDefault">
+                           Playing
+                          </label>
+                        </div>
+                        <div class="form-check me-3">
+                          <input class="form-check-input" type="checkbox" value="Drawing" id="flexCheckDefault2" name="check" <?= ($check_box == "Drawing" ? 'checked':'')?>>
+                          <label class="form-check-label" for="flexCheckDefault2">
+                            Drawing
+                          </label>
+                        </div>
+                        <div class="form-check me-3">
+                          <input class="form-check-input" type="checkbox" value="Gardening" id="flexCheckDefault3" name="check" <?= ($check_box == "Gardening" ? 'checked':'')?>>
+                          <label class="form-check-label" for="flexCheckDefault3">
+                            Gardening
+                          </label>
+                        </div>
+                        <div class="form-check me-3">
+                          <input class="form-check-input" type="checkbox" value="Traveling" id="flexCheckDefault4" name="check" <?= ($check_box == "Travelling" ? 'checked':'')?>>
+                          <label class="form-check-label" for="flexCheckDefault4">
+                            Travelling
+                          </label>
+                        </div>
+                        <div class="form-check me-3">
+                          <input class="form-check-input" type="checkbox" value="Singing" id="flexCheckDefault5" name="check" <?= ($check_box == "Singing" ? 'checked':'')?>>
+                          <label class="form-check-label" for="flexCheckDefault5">
+                           Singing
+                          </label>
+                        </div>
+
+                        </div>
+                        <?php if(isset($_SESSION["check_error_message"])){?>
+                          <div class="alert alert-warning mt-3"><?=$_SESSION["check_error_message"]?></div>
+                        <?php } ?>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              <button type="submit" class="btn btn-primary mt-4 w-100 d-block">Submit</button>
           </form>
         </div>
       </div>
@@ -123,6 +251,12 @@ unset($_SESSION["email_error_message"]);
 unset($_SESSION["old_email"]);
 unset($_SESSION["password_error_message"]);
 unset($_SESSION["old_password"]);
+unset($_SESSION["gender_error_message"]);
+unset($_SESSION["old_gender"]);
+unset($_SESSION["country_error_message"]);
+unset($_SESSION["old_country"]);
+unset($_SESSION["check_error_message"]);
+unset($_SESSION["old_check"]);
 
 
 
